@@ -1,0 +1,21 @@
+	FACULTY "Engineering" {
+		STUDENTS 3600
+		STAFF 362
+		WEBSITE "http://www.engineering.auckland.ac.nz"
+		CODE "SOFTENG" {
+			251 "Object Oriented Software Construction" 15p
+			796A "ME Thesis" 60p
+		}
+	}
+	
+	FACULTY "asd" {
+		CODE "qwe" {
+			999B "ME Thesis" 60p
+		}
+		STAFF 0
+		WEBSITE "http://www.engineering.auckland.ac.nz"
+		CODE "qwe" {
+			999A "ME Thesis" 60p
+		}
+		STUDENTS 0
+	}

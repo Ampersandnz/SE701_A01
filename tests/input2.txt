@@ -1,0 +1,4 @@
+WEBSITE "http://www.auckland.ac.nz"
+WEBSITE "https://www.auckland.ac.nz"
+WEBSITE "http://www.auckland.com/asd_qwe"
+WEBSITE "http:///////__././//"
