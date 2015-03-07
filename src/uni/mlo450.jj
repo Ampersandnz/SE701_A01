@@ -52,7 +52,7 @@ TOKEN :
 | < CODE : "CODE " < STRING > " " < LEFTCURLY >  >
 
 | < COURSEENTRY : < COURSEID > " " < STRING > " " < COURSEPOINTS > >
-| < #COURSEID : ["0"-"9"] ["0"-"9"] ["0"-"9"] (["A", "B"])?>
+| < #COURSEID : ["0"-"9"] ["0"-"9"] ["0"-"9"] (["A", "B"])? >
 | < #COURSEPOINTS : (["0"-"9"])? ["0"-"9"] "p" >
 
 | < LEFTCURLY : "{" >
@@ -68,12 +68,12 @@ void University() : {}
 
 void UniversityData() : {}
 {
-  < EST >
-  < WEBSITE >
-  < GPS >}
+ < EST >
+ < WEBSITE >
+ < GPS >}
 
 void Faculty() : {}{
-  < FACULTYNAME >
+ < FACULTYNAME >
 
 
  < RIGHTCURLY >
@@ -81,8 +81,5 @@ void Faculty() : {}{
 
 void Code() : {}{
  < CODE >
- (CourseEntry())+
+ (< COURSEENTRY >)+
  < RIGHTCURLY >}
-
-void CourseEntry () : {}{
-  < COURSEENTRY >}

@@ -23,7 +23,7 @@ public class UniParser implements UniParserConstants {
     jj_consume_token(CODE);
     label_1:
     while (true) {
-      CourseEntry();
+      jj_consume_token(COURSEENTRY);
       switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
       case COURSEENTRY:
         ;
@@ -34,10 +34,6 @@ public class UniParser implements UniParserConstants {
       }
     }
     jj_consume_token(RIGHTCURLY);
-  }
-
-  final public void CourseEntry() throws ParseException {
-    jj_consume_token(COURSEENTRY);
   }
 
   /** Generated Token Manager. */
