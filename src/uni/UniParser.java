@@ -6,26 +6,11 @@ public class UniParser implements UniParserConstants {
   final public void University() throws ParseException {
     jj_consume_token(UNIVERSITYNAME);
     UniversityData();
-  }
-
-  final public void UniversityData() throws ParseException {
-    jj_consume_token(EST);
-    jj_consume_token(WEBSITE);
-    jj_consume_token(GPS);
-  }
-
-  final public void Faculty() throws ParseException {
-    jj_consume_token(FACULTYNAME);
-    jj_consume_token(RIGHTCURLY);
-  }
-
-  final public void Code() throws ParseException {
-    jj_consume_token(CODE);
     label_1:
     while (true) {
-      jj_consume_token(COURSEENTRY);
+      Faculty();
       switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
-      case COURSEENTRY:
+      case FACULTY:
         ;
         break;
       default:
@@ -34,6 +19,111 @@ public class UniParser implements UniParserConstants {
       }
     }
     jj_consume_token(RIGHTCURLY);
+    jj_consume_token(0);
+  }
+
+  final public void UniversityData() throws ParseException {
+    jj_consume_token(EST);
+    jj_consume_token(WEBSITE);
+    jj_consume_token(GPS);
+  }
+
+  final public void Faculty() throws ParseException, ParseException {
+        boolean students = false;
+        boolean staff = false;
+        boolean website = false;
+        boolean code = false;
+        Token t;
+        String facultyName;
+    jj_consume_token(FACULTY);
+    t = jj_consume_token(STRING);
+   facultyName = t.image;
+    jj_consume_token(LEFTCURLY);
+    label_2:
+    while (true) {
+      switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+      case WEBSITE:
+      case STUDENTS:
+      case STAFF:
+      case CODE:
+        ;
+        break;
+      default:
+        jj_la1[1] = jj_gen;
+        break label_2;
+      }
+      switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+      case STUDENTS:
+        jj_consume_token(STUDENTS);
+ if (students) {
+   {if (true) throw new ParseException("Multiple students counts in faculty entry: " + facultyName);}
+ } else {
+   students = true;
+ }
+        break;
+      case STAFF:
+        jj_consume_token(STAFF);
+  if (staff) {
+   {if (true) throw new ParseException("Multiple staff counts in faculty entry: " + facultyName);}
+ } else {
+   staff = true;
+ }
+        break;
+      case WEBSITE:
+        jj_consume_token(WEBSITE);
+ if (website) {
+   {if (true) throw new ParseException("Multiple websites in faculty entry: " + facultyName);}
+ } else {
+   website = true;
+        }
+        break;
+      case CODE:
+        Code();
+  if (!code) {
+        code = true;
+  }
+        break;
+      default:
+        jj_la1[2] = jj_gen;
+        jj_consume_token(-1);
+        throw new ParseException();
+      }
+    }
+  if (!code) {
+                {if (true) throw new ParseException("No code found in faculty entry: " + facultyName);}
+        }
+  if (!staff) {
+                {if (true) throw new ParseException("No staff count found in faculty entry: " + facultyName);}
+        }
+  if (!students) {
+                {if (true) throw new ParseException("No student count found in faculty entry: " + facultyName);}
+        }
+    jj_consume_token(RIGHTCURLY);
+  }
+
+  final public void Code() throws ParseException {
+    jj_consume_token(CODE);
+    jj_consume_token(STRING);
+    jj_consume_token(LEFTCURLY);
+    label_3:
+    while (true) {
+      CourseEntry();
+      switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+      case COURSEID:
+        ;
+        break;
+      default:
+        jj_la1[3] = jj_gen;
+        break label_3;
+      }
+    }
+    jj_consume_token(RIGHTCURLY);
+  }
+
+  final public void CourseEntry() throws ParseException {
+    jj_consume_token(COURSEID);
+    jj_consume_token(STRING);
+    jj_consume_token(COURSEPOINTS);
   }
 
   /** Generated Token Manager. */
@@ -45,13 +135,13 @@ public class UniParser implements UniParserConstants {
   public Token jj_nt;
   private int jj_ntk;
   private int jj_gen;
-  final private int[] jj_la1 = new int[1];
+  final private int[] jj_la1 = new int[4];
   static private int[] jj_la1_0;
   static {
       jj_la1_init_0();
    }
    private static void jj_la1_init_0() {
-      jj_la1_0 = new int[] {0x1000000,};
+      jj_la1_0 = new int[] {0x40000,0xa80040,0xa80040,0x1000000,};
    }
 
   /** Constructor with InputStream. */
@@ -65,7 +155,7 @@ public class UniParser implements UniParserConstants {
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 1; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 4; i++) jj_la1[i] = -1;
   }
 
   /** Reinitialise. */
@@ -79,7 +169,7 @@ public class UniParser implements UniParserConstants {
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 1; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 4; i++) jj_la1[i] = -1;
   }
 
   /** Constructor. */
@@ -89,7 +179,7 @@ public class UniParser implements UniParserConstants {
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 1; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 4; i++) jj_la1[i] = -1;
   }
 
   /** Reinitialise. */
@@ -99,7 +189,7 @@ public class UniParser implements UniParserConstants {
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 1; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 4; i++) jj_la1[i] = -1;
   }
 
   /** Constructor with generated Token Manager. */
@@ -108,7 +198,7 @@ public class UniParser implements UniParserConstants {
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 1; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 4; i++) jj_la1[i] = -1;
   }
 
   /** Reinitialise. */
@@ -117,7 +207,7 @@ public class UniParser implements UniParserConstants {
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 1; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 4; i++) jj_la1[i] = -1;
   }
 
   private Token jj_consume_token(int kind) throws ParseException {
@@ -168,12 +258,12 @@ public class UniParser implements UniParserConstants {
   /** Generate ParseException. */
   public ParseException generateParseException() {
     jj_expentries.clear();
-    boolean[] la1tokens = new boolean[30];
+    boolean[] la1tokens = new boolean[29];
     if (jj_kind >= 0) {
       la1tokens[jj_kind] = true;
       jj_kind = -1;
     }
-    for (int i = 0; i < 1; i++) {
+    for (int i = 0; i < 4; i++) {
       if (jj_la1[i] == jj_gen) {
         for (int j = 0; j < 32; j++) {
           if ((jj_la1_0[i] & (1<<j)) != 0) {
@@ -182,7 +272,7 @@ public class UniParser implements UniParserConstants {
         }
       }
     }
-    for (int i = 0; i < 30; i++) {
+    for (int i = 0; i < 29; i++) {
       if (la1tokens[i]) {
         jj_expentry = new int[1];
         jj_expentry[0] = i;

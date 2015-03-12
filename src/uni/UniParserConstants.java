@@ -37,7 +37,7 @@ public interface UniParserConstants {
   /** RegularExpression Id. */
   int SECONDS = 17;
   /** RegularExpression Id. */
-  int FACULTYNAME = 18;
+  int FACULTY = 18;
   /** RegularExpression Id. */
   int STUDENTS = 19;
   /** RegularExpression Id. */
@@ -49,17 +49,15 @@ public interface UniParserConstants {
   /** RegularExpression Id. */
   int CODE = 23;
   /** RegularExpression Id. */
-  int COURSEENTRY = 24;
+  int COURSEID = 24;
   /** RegularExpression Id. */
-  int COURSEID = 25;
+  int COURSEPOINTS = 25;
   /** RegularExpression Id. */
-  int COURSEPOINTS = 26;
+  int LEFTCURLY = 26;
   /** RegularExpression Id. */
-  int LEFTCURLY = 27;
+  int RIGHTCURLY = 27;
   /** RegularExpression Id. */
-  int RIGHTCURLY = 28;
-  /** RegularExpression Id. */
-  int STRING = 29;
+  int STRING = 28;
 
   /** Lexical state. */
   int DEFAULT = 0;
@@ -84,13 +82,12 @@ public interface UniParserConstants {
     "<LATDEGREE>",
     "<MINUTES>",
     "<SECONDS>",
-    "<FACULTYNAME>",
+    "\"FACULTY \"",
     "<STUDENTS>",
     "<NUMSTUDENTS>",
     "<STAFF>",
     "<NUMSTAFF>",
-    "<CODE>",
-    "<COURSEENTRY>",
+    "\"CODE\"",
     "<COURSEID>",
     "<COURSEPOINTS>",
     "\"{\"",
