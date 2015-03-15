@@ -5,8 +5,8 @@ import java.io.FileNotFoundException;
 
 import uni.SimpleCharStream;
 import uni.Token;
-import uni.UniParserTokenManager;
 import uni.UniParserConstants;
+import uni.UniParserTokenManager;
 
 public class ScannerMain {
 

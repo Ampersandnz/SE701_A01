@@ -304,11 +304,6 @@ public class UniParser implements UniParserConstants {
     finally { jj_save(6, xla); }
   }
 
-  private boolean jj_3_1() {
-    if (jj_scan_token(DIGIT_3)) return true;
-    return false;
-  }
-
   private boolean jj_3_7() {
     if (jj_scan_token(DIGIT_2)) return true;
     return false;
@@ -336,6 +331,11 @@ public class UniParser implements UniParserConstants {
 
   private boolean jj_3_5() {
     if (jj_scan_token(YEAR)) return true;
+    return false;
+  }
+
+  private boolean jj_3_1() {
+    if (jj_scan_token(DIGIT_3)) return true;
     return false;
   }
 

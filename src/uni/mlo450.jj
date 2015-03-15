@@ -139,6 +139,7 @@ void Faculty() : {
      throw new ParseException("No codes found in " + t.image + " on line " + t.beginLine);
    } }
  
+
  < RIGHTCURLY >
 }
 
