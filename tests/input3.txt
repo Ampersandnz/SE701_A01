@@ -1,18 +1,5 @@
-GPS 36 deg 51 8.2218 E, 17 deg 46 8.6808 S
-GPS 136 deg 51 8.2218 E, 17 deg 46 8.6808 S
-GPS 1 deg 51 8.2218 E, 17 deg 46 8.6808 S
-GPS 1 deg 1 8.2218 E, 17 deg 46 8.6808 S
-GPS 1 deg 1 99.9999 E, 17 deg 46 8.6808 S
-GPS 1 deg 1 1.111 E, 17 deg 46 8.6808 S
-GPS 1 deg 1 1.11 E, 17 deg 46 8.6808 S
-GPS 1 deg 1 1.1 E, 17 deg 46 8.6808 S
-GPS 1 deg 1 1 E, 17 deg 46 8.6808 S
-GPS 1 deg 1 1 E, 99 deg 46 8.6808 S
-GPS 1 deg 1 1 E, 1 deg 46 8.6808 S
-GPS 1 deg 1 1 E, 1 deg 1 8.6808 S
-GPS 1 deg 1 1 E, 1 deg 1 99.9999 S
-GPS 1 deg 1 1 E, 1 deg 1 1.9999 S
-GPS 1 deg 1 1 E, 1 deg 1 1.111 S
-GPS 1 deg 1 1 E, 1 deg 1 1.11 S
-GPS 1 deg 1 1 E, 1 deg 1 1.1 S
-GPS 1 deg 1 1 E, 1 deg 1 1 S
+UNIVERSITY "Test" {
+	EST 0000
+	WEBSITE "http://google.com"
+	GPS 0 deg 99 45 E, 23 deg 7 0.4534 N
+}

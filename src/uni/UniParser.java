@@ -5,35 +5,338 @@ public class UniParser implements UniParserConstants {
 
   final public void University() throws ParseException {
     jj_consume_token(UNIVERSITYNAME);
+    jj_consume_token(NAME);
+    jj_consume_token(LEFTCURLY);
     UniversityData();
-  }
-
-  final public void UniversityData() throws ParseException {
-    jj_consume_token(EST);
-    jj_consume_token(WEBSITE);
-    jj_consume_token(GPS);
-  }
-
-  final public void Faculty() throws ParseException {
-    jj_consume_token(FACULTYNAME);
-    jj_consume_token(RIGHTCURLY);
-  }
-
-  final public void Code() throws ParseException {
-    jj_consume_token(CODE);
     label_1:
     while (true) {
-      jj_consume_token(COURSEENTRY);
       switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
-      case COURSEENTRY:
+      case FACULTY:
         ;
         break;
       default:
         jj_la1[0] = jj_gen;
         break label_1;
       }
+      Faculty();
     }
     jj_consume_token(RIGHTCURLY);
+    jj_consume_token(0);
+  }
+
+  final public void UniversityData() throws ParseException {
+    Est();
+    Website(false, "");
+    GPS();
+  }
+
+  final public void Est() throws ParseException {
+    jj_consume_token(EST);
+    jj_consume_token(YEAR);
+  }
+
+  final public void Website(boolean website, String facultyName) throws ParseException {
+  Token t;
+    t = jj_consume_token(WEBSITE);
+    jj_consume_token(URL);
+    if (website) {
+      {if (true) throw new ParseException("Multiple website entries detected in " + facultyName + " on line " + t.beginLine);}
+    }
+  }
+
+  final public void GPS() throws ParseException {
+    jj_consume_token(GPS);
+    Coordinates();
+  }
+
+  final public void Coordinates() throws ParseException {
+    Longitude();
+    jj_consume_token(COMMA);
+    Latitude();
+  }
+
+  final public void Longitude() throws ParseException {
+    Num_3();
+    jj_consume_token(DEG);
+    Num_2();
+    Seconds();
+    jj_consume_token(EW);
+  }
+
+  final public void Latitude() throws ParseException {
+    Num_2();
+    jj_consume_token(DEG);
+    Num_2();
+    Seconds();
+    jj_consume_token(NS);
+  }
+
+  final public void Seconds() throws ParseException {
+    Num_2();
+    switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+    case SECONDS:
+      jj_consume_token(SECONDS);
+      break;
+    default:
+      jj_la1[1] = jj_gen;
+      ;
+    }
+  }
+
+  final public void Faculty() throws ParseException {
+  boolean students = false;
+  boolean staff = false;
+  boolean website = false;
+  boolean code = false;
+  Token t;
+    jj_consume_token(FACULTY);
+    t = jj_consume_token(NAME);
+    jj_consume_token(LEFTCURLY);
+    label_2:
+    while (true) {
+      switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+      case WEBSITE:
+      case STUDENTS:
+      case STAFF:
+      case CODE:
+        ;
+        break;
+      default:
+        jj_la1[2] = jj_gen;
+        break label_2;
+      }
+      switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+      case STUDENTS:
+        Students(students, t.image);
+   students = true;
+        break;
+      case STAFF:
+        Staff(staff, t.image);
+   staff = true;
+        break;
+      case WEBSITE:
+        Website(website, t.image);
+   website = true;
+        break;
+      case CODE:
+        Code();
+   code = true;
+        break;
+      default:
+        jj_la1[3] = jj_gen;
+        jj_consume_token(-1);
+        throw new ParseException();
+      }
+    }
+   if (!students) {
+     {if (true) throw new ParseException("No student count found in " + t.image + " on line " + t.beginLine);}
+   } else if (!staff)
+   {
+     {if (true) throw new ParseException("No staff count found in " + t.image + " on line " + t.beginLine);}
+   } else if (!code)
+   {
+     {if (true) throw new ParseException("No codes found in " + t.image + " on line " + t.beginLine);}
+   }
+    jj_consume_token(RIGHTCURLY);
+  }
+
+  final public void Students(boolean students, String facultyName) throws ParseException {
+  Token t;
+    t = jj_consume_token(STUDENTS);
+    Num_General();
+    if (students) {
+      {if (true) throw new ParseException("Multiple student counts detected in " + facultyName + " on line " + t.beginLine);}
+    }
+  }
+
+  final public void Staff(boolean staff, String facultyName) throws ParseException {
+  Token t;
+    t = jj_consume_token(STAFF);
+    Num_General();
+    if (staff) {
+      {if (true) throw new ParseException("Multiple staff counts detected in " + facultyName + " on line " + t.beginLine);}
+    }
+  }
+
+  final public void Code() throws ParseException {
+    jj_consume_token(CODE);
+    jj_consume_token(CODENAME);
+    jj_consume_token(LEFTCURLY);
+    label_3:
+    while (true) {
+      CourseEntry();
+      switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+      case COURSEID:
+      case DIGIT_3:
+      case DIGIT_2:
+      case DIGIT:
+        ;
+        break;
+      default:
+        jj_la1[4] = jj_gen;
+        break label_3;
+      }
+    }
+    jj_consume_token(RIGHTCURLY);
+  }
+
+  final public void CourseEntry() throws ParseException {
+    switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+    case COURSEID:
+      jj_consume_token(COURSEID);
+      break;
+    case DIGIT_3:
+    case DIGIT_2:
+    case DIGIT:
+      Num_3();
+      break;
+    default:
+      jj_la1[5] = jj_gen;
+      jj_consume_token(-1);
+      throw new ParseException();
+    }
+    jj_consume_token(NAME);
+    jj_consume_token(COURSEPOINTS);
+  }
+
+  final public void Num_3() throws ParseException {
+    if (jj_2_1(3)) {
+      jj_consume_token(DIGIT_3);
+    } else if (jj_2_2(2)) {
+      jj_consume_token(DIGIT_2);
+    } else {
+      switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+      case DIGIT:
+        jj_consume_token(DIGIT);
+        break;
+      default:
+        jj_la1[6] = jj_gen;
+        jj_consume_token(-1);
+        throw new ParseException();
+      }
+    }
+  }
+
+  final public void Num_2() throws ParseException {
+    if (jj_2_3(2)) {
+      jj_consume_token(DIGIT_2);
+    } else {
+      switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+      case DIGIT:
+        jj_consume_token(DIGIT);
+        break;
+      default:
+        jj_la1[7] = jj_gen;
+        jj_consume_token(-1);
+        throw new ParseException();
+      }
+    }
+  }
+
+  final public void Num_General() throws ParseException {
+    if (jj_2_4(5)) {
+      jj_consume_token(NUMBER);
+    } else if (jj_2_5(4)) {
+      jj_consume_token(YEAR);
+    } else if (jj_2_6(3)) {
+      jj_consume_token(DIGIT_3);
+    } else if (jj_2_7(2)) {
+      jj_consume_token(DIGIT_2);
+    } else {
+      switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+      case DIGIT:
+        jj_consume_token(DIGIT);
+        break;
+      default:
+        jj_la1[8] = jj_gen;
+        jj_consume_token(-1);
+        throw new ParseException();
+      }
+    }
+  }
+
+  private boolean jj_2_1(int xla) {
+    jj_la = xla; jj_lastpos = jj_scanpos = token;
+    try { return !jj_3_1(); }
+    catch(LookaheadSuccess ls) { return true; }
+    finally { jj_save(0, xla); }
+  }
+
+  private boolean jj_2_2(int xla) {
+    jj_la = xla; jj_lastpos = jj_scanpos = token;
+    try { return !jj_3_2(); }
+    catch(LookaheadSuccess ls) { return true; }
+    finally { jj_save(1, xla); }
+  }
+
+  private boolean jj_2_3(int xla) {
+    jj_la = xla; jj_lastpos = jj_scanpos = token;
+    try { return !jj_3_3(); }
+    catch(LookaheadSuccess ls) { return true; }
+    finally { jj_save(2, xla); }
+  }
+
+  private boolean jj_2_4(int xla) {
+    jj_la = xla; jj_lastpos = jj_scanpos = token;
+    try { return !jj_3_4(); }
+    catch(LookaheadSuccess ls) { return true; }
+    finally { jj_save(3, xla); }
+  }
+
+  private boolean jj_2_5(int xla) {
+    jj_la = xla; jj_lastpos = jj_scanpos = token;
+    try { return !jj_3_5(); }
+    catch(LookaheadSuccess ls) { return true; }
+    finally { jj_save(4, xla); }
+  }
+
+  private boolean jj_2_6(int xla) {
+    jj_la = xla; jj_lastpos = jj_scanpos = token;
+    try { return !jj_3_6(); }
+    catch(LookaheadSuccess ls) { return true; }
+    finally { jj_save(5, xla); }
+  }
+
+  private boolean jj_2_7(int xla) {
+    jj_la = xla; jj_lastpos = jj_scanpos = token;
+    try { return !jj_3_7(); }
+    catch(LookaheadSuccess ls) { return true; }
+    finally { jj_save(6, xla); }
+  }
+
+  private boolean jj_3_1() {
+    if (jj_scan_token(DIGIT_3)) return true;
+    return false;
+  }
+
+  private boolean jj_3_7() {
+    if (jj_scan_token(DIGIT_2)) return true;
+    return false;
+  }
+
+  private boolean jj_3_4() {
+    if (jj_scan_token(NUMBER)) return true;
+    return false;
+  }
+
+  private boolean jj_3_6() {
+    if (jj_scan_token(DIGIT_3)) return true;
+    return false;
+  }
+
+  private boolean jj_3_3() {
+    if (jj_scan_token(DIGIT_2)) return true;
+    return false;
+  }
+
+  private boolean jj_3_2() {
+    if (jj_scan_token(DIGIT_2)) return true;
+    return false;
+  }
+
+  private boolean jj_3_5() {
+    if (jj_scan_token(YEAR)) return true;
+    return false;
   }
 
   /** Generated Token Manager. */
@@ -44,15 +347,20 @@ public class UniParser implements UniParserConstants {
   /** Next token. */
   public Token jj_nt;
   private int jj_ntk;
+  private Token jj_scanpos, jj_lastpos;
+  private int jj_la;
   private int jj_gen;
-  final private int[] jj_la1 = new int[1];
+  final private int[] jj_la1 = new int[9];
   static private int[] jj_la1_0;
   static {
       jj_la1_init_0();
    }
    private static void jj_la1_init_0() {
-      jj_la1_0 = new int[] {0x1000000,};
+      jj_la1_0 = new int[] {0x8000,0x4000,0x70040,0x70040,0x1d00000,0x1d00000,0x1000000,0x1000000,0x1000000,};
    }
+  final private JJCalls[] jj_2_rtns = new JJCalls[7];
+  private boolean jj_rescan = false;
+  private int jj_gc = 0;
 
   /** Constructor with InputStream. */
   public UniParser(java.io.InputStream stream) {
@@ -65,7 +373,8 @@ public class UniParser implements UniParserConstants {
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 1; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 9; i++) jj_la1[i] = -1;
+    for (int i = 0; i < jj_2_rtns.length; i++) jj_2_rtns[i] = new JJCalls();
   }
 
   /** Reinitialise. */
@@ -79,7 +388,8 @@ public class UniParser implements UniParserConstants {
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 1; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 9; i++) jj_la1[i] = -1;
+    for (int i = 0; i < jj_2_rtns.length; i++) jj_2_rtns[i] = new JJCalls();
   }
 
   /** Constructor. */
@@ -89,7 +399,8 @@ public class UniParser implements UniParserConstants {
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 1; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 9; i++) jj_la1[i] = -1;
+    for (int i = 0; i < jj_2_rtns.length; i++) jj_2_rtns[i] = new JJCalls();
   }
 
   /** Reinitialise. */
@@ -99,7 +410,8 @@ public class UniParser implements UniParserConstants {
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 1; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 9; i++) jj_la1[i] = -1;
+    for (int i = 0; i < jj_2_rtns.length; i++) jj_2_rtns[i] = new JJCalls();
   }
 
   /** Constructor with generated Token Manager. */
@@ -108,7 +420,8 @@ public class UniParser implements UniParserConstants {
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 1; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 9; i++) jj_la1[i] = -1;
+    for (int i = 0; i < jj_2_rtns.length; i++) jj_2_rtns[i] = new JJCalls();
   }
 
   /** Reinitialise. */
@@ -117,7 +430,8 @@ public class UniParser implements UniParserConstants {
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 1; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 9; i++) jj_la1[i] = -1;
+    for (int i = 0; i < jj_2_rtns.length; i++) jj_2_rtns[i] = new JJCalls();
   }
 
   private Token jj_consume_token(int kind) throws ParseException {
@@ -127,11 +441,44 @@ public class UniParser implements UniParserConstants {
     jj_ntk = -1;
     if (token.kind == kind) {
       jj_gen++;
+      if (++jj_gc > 100) {
+        jj_gc = 0;
+        for (int i = 0; i < jj_2_rtns.length; i++) {
+          JJCalls c = jj_2_rtns[i];
+          while (c != null) {
+            if (c.gen < jj_gen) c.first = null;
+            c = c.next;
+          }
+        }
+      }
       return token;
     }
     token = oldToken;
     jj_kind = kind;
     throw generateParseException();
+  }
+
+  static private final class LookaheadSuccess extends java.lang.Error { }
+  final private LookaheadSuccess jj_ls = new LookaheadSuccess();
+  private boolean jj_scan_token(int kind) {
+    if (jj_scanpos == jj_lastpos) {
+      jj_la--;
+      if (jj_scanpos.next == null) {
+        jj_lastpos = jj_scanpos = jj_scanpos.next = token_source.getNextToken();
+      } else {
+        jj_lastpos = jj_scanpos = jj_scanpos.next;
+      }
+    } else {
+      jj_scanpos = jj_scanpos.next;
+    }
+    if (jj_rescan) {
+      int i = 0; Token tok = token;
+      while (tok != null && tok != jj_scanpos) { i++; tok = tok.next; }
+      if (tok != null) jj_add_error_token(kind, i);
+    }
+    if (jj_scanpos.kind != kind) return true;
+    if (jj_la == 0 && jj_scanpos == jj_lastpos) throw jj_ls;
+    return false;
   }
 
 
@@ -164,6 +511,33 @@ public class UniParser implements UniParserConstants {
   private java.util.List<int[]> jj_expentries = new java.util.ArrayList<int[]>();
   private int[] jj_expentry;
   private int jj_kind = -1;
+  private int[] jj_lasttokens = new int[100];
+  private int jj_endpos;
+
+  private void jj_add_error_token(int kind, int pos) {
+    if (pos >= 100) return;
+    if (pos == jj_endpos + 1) {
+      jj_lasttokens[jj_endpos++] = kind;
+    } else if (jj_endpos != 0) {
+      jj_expentry = new int[jj_endpos];
+      for (int i = 0; i < jj_endpos; i++) {
+        jj_expentry[i] = jj_lasttokens[i];
+      }
+      jj_entries_loop: for (java.util.Iterator<?> it = jj_expentries.iterator(); it.hasNext();) {
+        int[] oldentry = (int[])(it.next());
+        if (oldentry.length == jj_expentry.length) {
+          for (int i = 0; i < jj_expentry.length; i++) {
+            if (oldentry[i] != jj_expentry[i]) {
+              continue jj_entries_loop;
+            }
+          }
+          jj_expentries.add(jj_expentry);
+          break jj_entries_loop;
+        }
+      }
+      if (pos != 0) jj_lasttokens[(jj_endpos = pos) - 1] = kind;
+    }
+  }
 
   /** Generate ParseException. */
   public ParseException generateParseException() {
@@ -173,7 +547,7 @@ public class UniParser implements UniParserConstants {
       la1tokens[jj_kind] = true;
       jj_kind = -1;
     }
-    for (int i = 0; i < 1; i++) {
+    for (int i = 0; i < 9; i++) {
       if (jj_la1[i] == jj_gen) {
         for (int j = 0; j < 32; j++) {
           if ((jj_la1_0[i] & (1<<j)) != 0) {
@@ -189,6 +563,9 @@ public class UniParser implements UniParserConstants {
         jj_expentries.add(jj_expentry);
       }
     }
+    jj_endpos = 0;
+    jj_rescan_token();
+    jj_add_error_token(0, 0);
     int[][] exptokseq = new int[jj_expentries.size()][];
     for (int i = 0; i < jj_expentries.size(); i++) {
       exptokseq[i] = jj_expentries.get(i);
@@ -202,6 +579,47 @@ public class UniParser implements UniParserConstants {
 
   /** Disable tracing. */
   final public void disable_tracing() {
+  }
+
+  private void jj_rescan_token() {
+    jj_rescan = true;
+    for (int i = 0; i < 7; i++) {
+    try {
+      JJCalls p = jj_2_rtns[i];
+      do {
+        if (p.gen > jj_gen) {
+          jj_la = p.arg; jj_lastpos = jj_scanpos = p.first;
+          switch (i) {
+            case 0: jj_3_1(); break;
+            case 1: jj_3_2(); break;
+            case 2: jj_3_3(); break;
+            case 3: jj_3_4(); break;
+            case 4: jj_3_5(); break;
+            case 5: jj_3_6(); break;
+            case 6: jj_3_7(); break;
+          }
+        }
+        p = p.next;
+      } while (p != null);
+      } catch(LookaheadSuccess ls) { }
+    }
+    jj_rescan = false;
+  }
+
+  private void jj_save(int index, int xla) {
+    JJCalls p = jj_2_rtns[index];
+    while (p.gen > jj_gen) {
+      if (p.next == null) { p = p.next = new JJCalls(); break; }
+      p = p.next;
+    }
+    p.gen = jj_gen + xla - jj_la; p.first = token; p.arg = xla;
+  }
+
+  static final class JJCalls {
+    int gen;
+    Token first;
+    int arg;
+    JJCalls next;
   }
 
 }

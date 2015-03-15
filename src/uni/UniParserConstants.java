@@ -23,43 +23,43 @@ public interface UniParserConstants {
   /** RegularExpression Id. */
   int GPS = 10;
   /** RegularExpression Id. */
-  int COORDINATES = 11;
+  int DEG = 11;
   /** RegularExpression Id. */
-  int LONGITUDE = 12;
+  int EW = 12;
   /** RegularExpression Id. */
-  int LATITUDE = 13;
+  int NS = 13;
   /** RegularExpression Id. */
-  int LONGDEGREE = 14;
+  int SECONDS = 14;
   /** RegularExpression Id. */
-  int LATDEGREE = 15;
+  int FACULTY = 15;
   /** RegularExpression Id. */
-  int MINUTES = 16;
+  int STUDENTS = 16;
   /** RegularExpression Id. */
-  int SECONDS = 17;
+  int STAFF = 17;
   /** RegularExpression Id. */
-  int FACULTYNAME = 18;
+  int CODE = 18;
   /** RegularExpression Id. */
-  int STUDENTS = 19;
+  int CODENAME = 19;
   /** RegularExpression Id. */
-  int NUMSTUDENTS = 20;
+  int COURSEID = 20;
   /** RegularExpression Id. */
-  int STAFF = 21;
+  int COURSEPOINTS = 21;
   /** RegularExpression Id. */
-  int NUMSTAFF = 22;
+  int DIGIT_3 = 22;
   /** RegularExpression Id. */
-  int CODE = 23;
+  int DIGIT_2 = 23;
   /** RegularExpression Id. */
-  int COURSEENTRY = 24;
+  int DIGIT = 24;
   /** RegularExpression Id. */
-  int COURSEID = 25;
+  int COMMA = 25;
   /** RegularExpression Id. */
-  int COURSEPOINTS = 26;
+  int LEFTCURLY = 26;
   /** RegularExpression Id. */
-  int LEFTCURLY = 27;
+  int RIGHTCURLY = 27;
   /** RegularExpression Id. */
-  int RIGHTCURLY = 28;
+  int NAME = 28;
   /** RegularExpression Id. */
-  int STRING = 29;
+  int NUMBER = 29;
 
   /** Lexical state. */
   int DEFAULT = 0;
@@ -71,31 +71,31 @@ public interface UniParserConstants {
     "\"\\r\"",
     "\"\\t\"",
     "\"\\n\"",
-    "<UNIVERSITYNAME>",
-    "<WEBSITE>",
+    "\"UNIVERSITY\"",
+    "\"WEBSITE\"",
     "<URL>",
-    "<EST>",
+    "\"EST\"",
     "<YEAR>",
-    "<GPS>",
-    "<COORDINATES>",
-    "<LONGITUDE>",
-    "<LATITUDE>",
-    "<LONGDEGREE>",
-    "<LATDEGREE>",
-    "<MINUTES>",
+    "\"GPS\"",
+    "\"deg\"",
+    "<EW>",
+    "<NS>",
     "<SECONDS>",
-    "<FACULTYNAME>",
-    "<STUDENTS>",
-    "<NUMSTUDENTS>",
-    "<STAFF>",
-    "<NUMSTAFF>",
-    "<CODE>",
-    "<COURSEENTRY>",
+    "\"FACULTY\"",
+    "\"STUDENTS\"",
+    "\"STAFF\"",
+    "\"CODE\"",
+    "<CODENAME>",
     "<COURSEID>",
     "<COURSEPOINTS>",
+    "<DIGIT_3>",
+    "<DIGIT_2>",
+    "<DIGIT>",
+    "\",\"",
     "\"{\"",
     "\"}\"",
-    "<STRING>",
+    "<NAME>",
+    "<NUMBER>",
   };
 
 }
